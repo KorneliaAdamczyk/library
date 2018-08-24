@@ -20,16 +20,16 @@ import java.time.LocalDate;
     @Test
     public void createReader(){
 
-        //Given
-        Reader reader = new Reader(1L,"Paulina", "Lis", LocalDate.of(2018, 8, 20));
+       //Given
+       Reader reader = new Reader(1L,"Hanna", "Lis", LocalDate.of(2018,8,24));
 
         //When
         Reader testReader = readerRepository.save(reader);
 
         //Then
-        Assert.assertTrue(readerRepository.exists(testReader.getId()));
+        Assert.assertTrue(readerRepository.existsById(testReader.getId()));
 
         //CleanUp
-        //readerRepository.delete(testReader.getId());
+        readerRepository.deleteById(testReader.getId());
     }
 }

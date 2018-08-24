@@ -1,24 +1,19 @@
 package com.crud.kodillalibrary.domain;
 
-import com.crud.kodillalibrary.LocalDateDeserializer;
-import com.crud.kodillalibrary.LocalDateSerializer;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Entity(name="readers")
-public class Reader implements Serializable{
+public class Reader {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,11 +25,9 @@ public class Reader implements Serializable{
     @Column
     private String surname;
 
-    @Column (name="account_creation_date")
-    @DateTimeFormat(style = "dd-MM-yyyy")
-    @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonSerialize(using = LocalDateSerializer.class)
+    @Column(name = "account_creation_date")
     private LocalDate accountCreationDate;
-    }
+
+}
 
 
