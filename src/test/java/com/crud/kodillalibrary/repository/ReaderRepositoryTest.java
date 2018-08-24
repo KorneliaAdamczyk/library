@@ -18,10 +18,10 @@ import java.time.LocalDate;
         ReaderRepository readerRepository;
 
     @Test
-    public void createReader(){
+    public void shouldCreateReader(){
 
        //Given
-       Reader reader = new Reader(1L,"Hanna", "Lis", LocalDate.of(2018,8,24));
+        Reader reader = new Reader(1L,"Hanna", "Lis",LocalDate.now());
 
         //When
         Reader testReader = readerRepository.save(reader);

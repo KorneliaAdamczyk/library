@@ -28,6 +28,8 @@ public class Reader {
     @Column(name = "account_creation_date")
     private LocalDate accountCreationDate;
 
+
+
 }
 
 

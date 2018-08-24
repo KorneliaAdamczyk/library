@@ -1,5 +1,9 @@
 package com.crud.kodillalibrary.domain;
 
+import com.crud.kodillalibrary.converter.LocalDateDeserializer;
+import com.crud.kodillalibrary.converter.LocalDateSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +20,9 @@ import java.time.LocalDate;
         private Long id;
         private String name;
         private String surname;
+
+        @JsonDeserialize(using= LocalDateDeserializer.class)
+        @JsonSerialize(using= LocalDateSerializer.class)
         private LocalDate accountCreationDate;
     }
 
