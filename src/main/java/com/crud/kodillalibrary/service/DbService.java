@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DbService {
@@ -22,4 +24,13 @@ public class DbService {
         readerRepository.save(reader);
         return reader;
     }
+
+    public Optional<Reader> getReader (Long id) {
+        return readerRepository.findById(id);
+    }
+
+    public List<Reader> getAllReaders(){
+        return (List<Reader>) readerRepository.findAll();
+    }
+
 }

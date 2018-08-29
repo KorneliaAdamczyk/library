@@ -1,13 +1,16 @@
 package com.crud.kodillalibrary.controller;
 
 import com.crud.kodillalibrary.domain.*;
+
+import com.crud.kodillalibrary.exceptions.ReaderNotFoundException;
 import com.crud.kodillalibrary.mapper.ReaderMapper;
 import com.crud.kodillalibrary.service.DbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+import java.util.List;
 
+import static com.crud.kodillalibrary.exceptions.ReaderNotFoundException.READER_NOT_FOUND_EXCEPTION;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -20,8 +23,19 @@ public class LibraryController {
     @Autowired
     ReaderMapper readerMapper;
 
-    @RequestMapping(method = RequestMethod.POST, value = "/createReader", consumes = APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.POST, value = "/readers", consumes = APPLICATION_JSON_VALUE)
     public void createReader(@RequestBody ReaderDto readerDto){
         dbService.saveReader(readerMapper.mapToReader(readerDto));
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/readers/{readerId}")
+    public ReaderDto getReader (@PathVariable Long readerId) throws ReaderNotFoundException {
+        return readerMapper.mapToReaderDto(dbService.getReader(readerId).orElseThrow(() -> new ReaderNotFoundException(READER_NOT_FOUND_EXCEPTION + " for reader_id " + readerId)));
+    }
+
+    @RequestMapping(method=RequestMethod.GET, value = "/readers")
+    public List<ReaderDto> getReaders(){
+        return readerMapper.mapToReaderDtoList(dbService.getAllReaders());
+    }
+
 }
