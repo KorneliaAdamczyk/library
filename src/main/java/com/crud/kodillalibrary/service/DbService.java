@@ -33,4 +33,12 @@ public class DbService {
         return (List<Reader>) readerRepository.findAll();
     }
 
+    public void deleteReader (Long id){
+        readerRepository.deleteById(id);
+    }
+
+    public Reader updateReader (final Reader reader){
+        readerRepository.save(reader);
+        return reader;
+    }
 }

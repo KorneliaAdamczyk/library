@@ -32,7 +32,7 @@ import java.util.Optional;
         Assert.assertTrue(readerRepository.existsById(testReader.getId()));
 
         //CleanUp
-        readerRepository.deleteById(testReader.getId());
+       readerRepository.deleteById(testReader.getId());
     }
 
     @Test
@@ -79,4 +79,27 @@ import java.util.Optional;
         readerRepository.deleteAll();
     }
 
+    @Test
+    public void shouldDeleteReader(){
+        //Given
+        Reader reader1 = new Reader(1L,"Hanna", "Lis",LocalDate.now());
+        Reader reader2 = new Reader(2L,"Helena", "Nowak",LocalDate.now());
+        Reader reader3 = new Reader(3L,"Janusz", "Kowalski",LocalDate.now());
+        readerRepository.save(reader1);
+        readerRepository.save(reader2);
+        readerRepository.save(reader3);
+
+        List<Reader> testList1 = readerRepository.findAll();
+
+        //When
+        readerRepository.deleteById(testList1.get(0).getId());
+        List<Reader>testList2 = readerRepository.findAll();
+
+        //Then
+        Assert.assertEquals(2,testList2.size());
+
+        //CleanUp
+        readerRepository.deleteAll();
+
+    }
 }

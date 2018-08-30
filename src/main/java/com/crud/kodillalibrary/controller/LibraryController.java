@@ -30,12 +30,22 @@ public class LibraryController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/readers/{readerId}")
     public ReaderDto getReader (@PathVariable Long readerId) throws ReaderNotFoundException {
-        return readerMapper.mapToReaderDto(dbService.getReader(readerId).orElseThrow(() -> new ReaderNotFoundException(READER_NOT_FOUND_EXCEPTION + " for reader_id " + readerId)));
+        return readerMapper.mapToReaderDto(dbService.getReader(readerId).orElseThrow(() -> new ReaderNotFoundException(READER_NOT_FOUND_EXCEPTION + " for reader_id " + readerId )));
     }
 
     @RequestMapping(method=RequestMethod.GET, value = "/readers")
     public List<ReaderDto> getReaders(){
         return readerMapper.mapToReaderDtoList(dbService.getAllReaders());
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/readers/{readerId}")
+    public void deleteReader (@PathVariable Long readerId){
+        dbService.deleteReader(readerId);
+    }
+
+    @RequestMapping (method= RequestMethod.PUT, value = "/readers")
+    public ReaderDto updateReader (@RequestBody ReaderDto readerDto){
+        return readerMapper.mapToReaderDto(dbService.updateReader(readerMapper.mapToReader(readerDto)));
     }
 
 }
